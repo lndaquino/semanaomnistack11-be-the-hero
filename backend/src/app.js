@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { errors } = require('celebrate');
 const routes = require('./routes');
 const app = express();
 
@@ -8,7 +9,10 @@ app.use(cors()); // usado em desenvolvimento, em produção ver abaixo pra permi
 
 app.use(express.json());
 app.use(routes);
-app.listen(3333);
+app.use(errors()); //manipulador de erros do servidor
+module.exports = app; // em teste só chama o app, em desenvolvimento chama o server (packgage.json)
+
+//app.listen(3333);
 /**
  * Rota - caminho completo da url (ex: localhost:3333/users)
  * Recurso - o q queremos acessar (ex: users)
